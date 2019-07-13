@@ -1,11 +1,9 @@
 package com.target.estudante;
 
+import com.target.estudante.domain.Materia;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,4 +23,12 @@ public class MateriaController {
     public void addMateria(@RequestBody MateriaDTO m){
         service.addMateria(m);
     }
+
+    @ApiOperation( value="Obtém materia por código", response=MateriaDTO.class, tags="getMateriaPorCodigo" )
+    @GetMapping("/materia/{codigo}")
+    public MateriaDTO getMateriaPorCodigo(@PathVariable Long codigo){
+        return service.getMateriaPorCodigo(codigo);
+    }
+
+
 }

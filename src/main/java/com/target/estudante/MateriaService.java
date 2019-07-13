@@ -25,4 +25,9 @@ public class MateriaService {
     public void addMateria(MateriaDTO m){
         repo.save(m.converteMateria());
     }
+
+    public MateriaDTO getMateriaPorCodigo(Long codigo){
+        Materia mat = repo.findByCodigo(codigo);
+        return new MateriaDTO(mat);
+    }
 }

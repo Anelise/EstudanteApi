@@ -47,4 +47,42 @@ public class EstudanteService {
 
         repoEstudante.save(estudante);
     }
+
+    public EstudanteDTO getEstudante(Long materia){
+        Estudante est = repoEstudante.findByMatricula(materia);
+        return new EstudanteDTO(est);
+    }
+
+    public void atualizaEstudante(Long matricula, EstudanteDTO estuPassado){
+        Estudante estuAtualizado = repoEstudante.findByMatricula(matricula);
+        estuAtualizado.setIdade(estuPassado.getIdade());
+        estuAtualizado.setNome(estuPassado.getNome());
+        estuAtualizado.setTurma(estuPassado.getTurma());
+
+        repoEstudante.save(estuAtualizado);
+    }
+
+    public List<EstudanteDTO> getEstudantesPorNome(String nome){
+        List<Estudante> estudantes = repoEstudante.findByNome(nome);
+        List<EstudanteDTO> estudantesDTO = new ArrayList<>();
+
+        for(Estudante estudante : estudantes ){
+            estudantesDTO.add(new EstudanteDTO(estudante));
+        }
+        return estudantesDTO;
+    }
+
+    public void deleteEstudante(Long matricula){
+        repoEstudante.deleteByMatricula(matricula);
+    }
+
+    public List<EstudanteDTO> getPorIntervaloMatricula(Long v1, Long v2){
+        List<Estudante> estudantes = repoEstudante.findByMatriculaIntervalo(v1,v2);
+        List<EstudanteDTO> estudantesDTO = new ArrayList<>();
+
+        for(Estudante estudante : estudantes ){
+            estudantesDTO.add(new EstudanteDTO(estudante));
+        }
+        return estudantesDTO;
+    }
 }
