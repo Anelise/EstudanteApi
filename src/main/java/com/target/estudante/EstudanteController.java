@@ -1,17 +1,25 @@
 package com.target.estudante;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api(value="EstudanteController", description = "Controladora de estudantes")
 @RestController
 public class EstudanteController {
     @Autowired
     private EstudanteService service;
 
     @ApiOperation( value="Obtém a lista de Estudantes", response=Iterable.class, tags="getTodosEstudantes")
+    @ApiResponses( value = {
+            @ApiResponse(code =200, message="Sucesso", response = EstudanteDTO.class),
+            @ApiResponse(code =500, message="Erro", response = Exception.class)
+    })
     @GetMapping("/estudantes")
     public List<EstudanteDTO> getTodosEstudantes(){
         return service.buscaTodos();
